@@ -44,6 +44,14 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   translate(4*width/5, height/2);
   soundwave(other);
   pop();
+
+  // fade out at end of song
+  let fadeout = map(counter, 16078, 16330, 0, 255)
+  if (counter >= 16078) {
+    fill(20, fadeout);
+    rect(width/2, height/2, width, height);
+  }
+
 }
 
 function soundwave(instrument){

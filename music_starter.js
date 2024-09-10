@@ -1,11 +1,25 @@
-
+let firstrun = true;
+let gif;
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   rectMode(CENTER);
-  
   background(20);
   noStroke();
+
+  if (firstrun == true) {
+    gif = loadImage("circles.gif");
+
+    firstrun = false;
+  }
+  push();
+  scale(1.3); // california 2.3ish
+  image(gif, 0, 0);
+  pop();
+  fill(20, 100);
+  rect(width/2, height/2, width, height);
+
+  fill(255);
 
   push();
   translate(width/5, height/2);
@@ -26,7 +40,6 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   translate(4*width/5, height/2);
   soundwave(other);
   pop();
-
 }
 
 function soundwave(instrument){
@@ -34,15 +47,7 @@ function soundwave(instrument){
   let spacing = barsize+10;
   let barshrink;
 
-  let soundheight = map(instrument, 0, 100, 0, 400);
-  /*
-  rect(-spacing*2, 0, barsize, soundheight/4); // left bar
-  rect(-spacing, 0, barsize, soundheight/2); // left bar
-  rect(spacing, 0, barsize, soundheight/2); // right bar
-  rect(spacing*2, 0, barsize, soundheight/4); // left bar
-
-  rect(0, 0, barsize, soundheight); // main bar
-  */
+  let soundheight = map(instrument, 0, 100, 0, height-20);
 
  for (let i = -5; i <= 5; i++) {
   if (i == 0) {
@@ -58,7 +63,6 @@ function soundwave(instrument){
   } else if (i == 5 || i == -5) {
     barshrink = 32
   }
-
   rect(spacing*i, 0, barsize, soundheight/barshrink)
  }
 }
